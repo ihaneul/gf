@@ -2,7 +2,12 @@
 
 int main(int argc, char* args[])
 {
-  printf("Hello SDL\n");
+  int a = 0;
+  int b = 0;
+
+  scanf("%d",&a);
+  scanf("%d",&b);
+  printf("%d",a+b);
 
   return 0;
 }
