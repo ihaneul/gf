@@ -1,13 +1,31 @@
-#include <stdio.h>
+#include <SDL.h>
+
+SDL_window* g_pWindow = 0;
+SDL_Renderer* g_pRenderer = 0;
 
 int main(int argc, char* args[])
 {
-  int a = 0;
-  int b = 0;
+  if(SDL_Init(SDL_INIT_EVERYTHING) >= 0)
+   {
+     g_pWindow = SDL_CreateWindow("HelloSDL", SDL_WINDOWPOS_CENTERED,
+       SDL_WINDOWPOS_CENTERED, 512, 512, SDL_WINDOW_SHOWN); //change name, size
 
-  scanf("%d",&a);
-  scanf("%d",&b);
-  printf("%d",a+b);
+       if(g_pWindow != 0)
+       {
+         g_pRenderer = SDL_CreateWindow(g_pWindow, -1, 0);
+       }
+   }
+   else
+   {
+     return 1;
+   }
 
-  return 0;
+   SDL_SetRenderDrawColor(g_pRenderer, 0, 255, 0, 255); // change color
+   SDL_RenderClear(g_pRenderer);
+   SDL_RenderPresent(g_pRenderer);
+
+   SDL_Delay(5000);
+   SDL_Quit();
+
+   return 0;
 }
