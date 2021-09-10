@@ -21,6 +21,8 @@ int main(int argc, char* args[])
    }
 
    SDL_SetRenderDrawColor(g_pRenderer, 0, 255, 0, 255); // change color
+   SDL_Delay(5000);
+   SDL_SetRenderDrawColor(g_pRenderer, 255, 0, 0, 255);
    SDL_RenderClear(g_pRenderer);
    SDL_RenderPresent(g_pRenderer);
 
