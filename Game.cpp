@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "SDL_image.h"
 
 bool Game::init(const char *title, int  xpos,int ypos, int width, int height, int flags)
 {
@@ -8,7 +9,7 @@ bool Game::init(const char *title, int  xpos,int ypos, int width, int height, in
       m_pRenderer = SDL_CreateRenderer(m_pWindow,-1,0);
 
       if(m_pRenderer != 0){
-        SDL_SetRenderDrawColor(m_pRenderer, 255, 255, 255, 255);
+        SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 0);
       } else{
         return false; // 랜더러 생성 실패
       }
@@ -21,22 +22,22 @@ bool Game::init(const char *title, int  xpos,int ypos, int width, int height, in
   m_bRunning = true;
 
 
-  SDL_Surface* pTemSurface = SDL_LoadBMP("Assets/rider.bmp");
-  
+  SDL_Surface* pTemSurface = IMG_Load("Assets/animate-alpha.png");
+  SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255); // 붉은색 배경
   m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTemSurface);
 
   SDL_FreeSurface(pTemSurface); // surface 삭제 
 
-  SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+ // SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
   
   m_sourceRectangle.x = 0;
   m_sourceRectangle.y = 0;
 
-  /*m_destinationRectangle.w = m_sourceRectangle.w;
-  m_destinationRectangle.h = m_sourceRectangle.h;*/
+  m_sourceRectangle.h = 82;
+  m_sourceRectangle.w = 128;
+  m_destinationRectangle.w = m_sourceRectangle.w;
+  m_destinationRectangle.h = m_sourceRectangle.h;
 
-  m_destinationRectangle.w = 640;
-  m_destinationRectangle.h = 480; 
   m_destinationRectangle.x = 0;
   m_destinationRectangle.y = 0;
 
@@ -47,6 +48,8 @@ bool Game::init(const char *title, int  xpos,int ypos, int width, int height, in
 
 void Game::update()
 {
+  m_sourceRectangle.x = 128 * ( (SDL_GetTicks() / 100) % 6);
+  m_destinationRectangle.x = (SDL_GetTicks()/15);
 }
 
 void Game::render()
