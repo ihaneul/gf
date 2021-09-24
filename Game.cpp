@@ -20,17 +20,28 @@ bool Game::init(const char *title, int  xpos,int ypos, int width, int height, in
     }
   m_bRunning = true;
 
+
   SDL_Surface* pTemSurface = SDL_LoadBMP("Assets/rider.bmp");
+  
   m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTemSurface);
-  SDL_FreeSurface(pTemSurface);
+
+  SDL_FreeSurface(pTemSurface); // surface 삭제 
 
   SDL_QueryTexture(m_pTexture, NULL, NULL, &m_sourceRectangle.w, &m_sourceRectangle.h);
+  
+  m_sourceRectangle.x = 0;
+  m_sourceRectangle.y = 0;
 
-  m_destinationRectangle.w = m_sourceRectangle.w;
-  m_destinationRectangle.h = m_sourceRectangle.h;
+  /*m_destinationRectangle.w = m_sourceRectangle.w;
+  m_destinationRectangle.h = m_sourceRectangle.h;*/
 
-  m_destinationRectangle.x = m_sourceRectangle.x = 0;
-  m_destinationRectangle.y = m_sourceRectangle.y = 0;
+  m_destinationRectangle.w = 640;
+  m_destinationRectangle.h = 480; 
+  m_destinationRectangle.x = 0;
+  m_destinationRectangle.y = 0;
+
+  SDL_RenderCopy(m_pRenderer,m_pTexture,&m_sourceRectangle,&m_destinationRectangle);
+
   return true;
 }
 
@@ -40,9 +51,9 @@ void Game::update()
 
 void Game::render()
 {
-  SDL_RenderClear(m_pRenderer);
-  SDL_RenderPresent(m_pRenderer);
-  SDL_RenderCopy(m_pRenderer,m_pTexture,&m_sourceRectangle,&m_destinationRectangle);
+  SDL_RenderClear(m_pRenderer);   // 랜더 삭제 
+  SDL_RenderCopy(m_pRenderer,m_pTexture,&m_sourceRectangle,&m_destinationRectangle); // 랜더 
+  SDL_RenderPresent(m_pRenderer); // 다른 버퍼 연결
 }
 
 bool Game::running()
