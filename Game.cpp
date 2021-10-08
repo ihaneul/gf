@@ -1,5 +1,6 @@
 #include "Game.h"
-#include "SDL_image.h"
+//#include "SDL_image.h"
+#include "TextureManager.h"
 
 bool Game::init(const char *title, int  xpos,int ypos, int width, int height, int flags)
 {
@@ -21,9 +22,9 @@ bool Game::init(const char *title, int  xpos,int ypos, int width, int height, in
     }
   m_bRunning = true;
 
-
-  SDL_Surface* pTemSurface = IMG_Load("Assets/animate-alpha.png");
-  SDL_SetRenderDrawColor(m_pRenderer, 255, 0, 0, 255); // 붉은색 배경
+  m_textureManager.load("Assets/animate-alpha.png", "animate", m_pRenderer);
+/*  SDL_Surface* pTemSurface = IMG_Load("Assets/animate-alpha.png");
+  SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255); // 붉은색 배경
   m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer, pTemSurface);
 
   SDL_FreeSurface(pTemSurface); // surface 삭제 
@@ -41,21 +42,24 @@ bool Game::init(const char *title, int  xpos,int ypos, int width, int height, in
   m_destinationRectangle.x = 0;
   m_destinationRectangle.y = 0;
 
-  SDL_RenderCopy(m_pRenderer,m_pTexture,&m_sourceRectangle,&m_destinationRectangle);
-
+  SDL_RenderCopy(m_pRenderer,m_pTexture,&m_sourceRectangle,&m_destinationRectangle);*/
   return true;
 }
 
 void Game::update()
 {
-  m_sourceRectangle.x = 128 * ( (SDL_GetTicks() / 100) % 6);
-  m_destinationRectangle.x = (SDL_GetTicks()/15);
+  m_currentFrame = ( (SDL_GetTicks() / 100) % 6);
+  /*m_sourceRectangle.x = 128 * ( (SDL_GetTicks() / 100) % 6);
+  m_destinationRectangle.x = (SDL_GetTicks()/15);*/
 }
 
 void Game::render()
 {
   SDL_RenderClear(m_pRenderer);   // 랜더 삭제 
-  SDL_RenderCopy(m_pRenderer,m_pTexture,&m_sourceRectangle,&m_destinationRectangle); // 랜더 
+ // SDL_RenderCopy(m_pRenderer,m_pTexture,&m_sourceRectangle,&m_destinationRectangle); // 랜더 
+  m_textureManager.draw("animate", 0, 0, 128, 82, m_pRenderer);
+  m_textureManager.drawFrame("animate", 100, 100, 128, 82, 0, m_currentFrame, m_pRenderer);
+
   SDL_RenderPresent(m_pRenderer); // 다른 버퍼 연결
 }
 

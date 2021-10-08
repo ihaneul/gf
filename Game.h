@@ -1,7 +1,10 @@
-#ifndef __Game__
-#define __Game__
+#pragma once
+//#ifndef __Game__
+//#define __Game__
 
 #include "SDL.h"
+#include <map>
+#include "TextureManager.h"
 
 class Game{
 public:
@@ -14,7 +17,8 @@ public:
     bool running();
     void handleEvents();
     void clean();
-
+    TextureManager m_textureManager;
+    int m_currentFrame;
   private:
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
@@ -26,4 +30,4 @@ public:
     bool m_bRunning;
 };
 
-#endif
+//#endif
