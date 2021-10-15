@@ -5,6 +5,8 @@
 #include "SDL.h"
 #include <map>
 #include "TextureManager.h"
+#include "GameObject.h"
+#include "Player.h"
 
 class Game{
 public:
@@ -19,6 +21,8 @@ public:
     void clean();
     TextureManager m_textureManager;
     int m_currentFrame;
+    GameObject m_go;
+    Player m_player;
   private:
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
