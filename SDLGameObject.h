@@ -15,7 +15,7 @@ public:
 protected:
   Vector2D m_position;
   int m_width;
-  int m_height;
+  int m_height; 
   int m_currentRow;
   int m_currentFrame;
   std::string m_textureID;
