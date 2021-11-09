@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "SDL_image.h"
-
+#include "InputHandler.h"
 Game* Game::s_pInstance = 0;
 
 bool Game::init(const char *title, int  xpos,int ypos, int width, int height, int flags)
@@ -68,16 +68,7 @@ bool Game::running()
 
 void Game::handleEvents()
 {
-  SDL_Event event;
-  if(SDL_PollEvent(&event)){
-    switch(event.type){
-      case SDL_QUIT:
-        m_bRunning = false;
-        break;
-      default:
-        break;
-    }
-  }
+  TheInputHandler::Instance()->update();
 }
 void Game::clean()
 {

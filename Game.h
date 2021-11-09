@@ -27,6 +27,7 @@ public:
     bool running();
     void handleEvents();
     void clean();
+    void quit() {m_bRunning = false;}
     TextureManager m_textureManager;
     int m_currentFrame;
 //    GameObject m_go;
